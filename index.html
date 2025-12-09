@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <title>WebGPU PubMed Viewer</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Remove Three.js importmap, we'll use native WebGPU -->
+</head>
+<body>
+  <div id="app-container">
+    <div id="main-content">
+      <!-- Data Table Container (same as before) -->
+      <div id="data-container">
+        <h2>PubMed Articles</h2>
+        <table id="data-table">
+          <colgroup>
+            <col style="width: 30%">  <!-- Title -->
+            <col style="width: 5%">   <!-- Select -->
+            <col style="width: 15%">  <!-- Notes -->
+            <col style="width: 5%">   <!-- Rating -->
+            <col style="width: 10%">  <!-- Tags -->
+            <col style="width: 20%">  <!-- MeSH Terms -->
+            <col style="width: 15%">  <!-- Keywords -->
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Select</th>
+              <th>Notes</th>
+              <th>Rating</th>
+              <th>Tags</th>
+              <th>MeSH Terms</th>
+              <th>Keywords</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Will be populated by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Vertical Splitter -->
+      <div id="vertical-splitter" class="splitter"></div>
+    
+      <!-- Graphics Container - WebGPU Canvas -->
+      <div id="graphics-container">
+        <canvas id="webgpu-canvas" width="1505" height="700" tabindex="1"></canvas>
+        <div id="gpu-status" class="status-message">
+          Initializing WebGPU...
+        </div>
+      </div>
+      
+      <!-- Horizontal Splitter -->
+      <div id="horizontal-splitter" class="splitter"></div>
+    
+      <div id="text-container">
+        <div id="selected-title">No article selected</div>
+        <div class="metadata-row">
+          <span class="metadata-label">PMID:</span>
+          <span id="pmid-text">-</span>
+        </div>
+        <div class="metadata-row">
+          <span class="metadata-label">PubYear:</span>
+          <span id="year-text">-</span>
+        </div>
+        <div class="metadata-row">
+          <span class="metadata-label">Source:</span>
+          <span id="source-text">-</span>
+        </div>
+        <div class="metadata-row">
+          <span class="metadata-label">DOI Link:</span>
+          <a id="doi-link" target="_blank">-</a>
+        </div>
+        <div class="metadata-row">
+          <span class="metadata-label">PMC Link:</span>
+          <a id="pmc-link" target="_blank">-</a>
+        </div>
+        <div id="abstract-text">Select an article to view its abstract</div>
+      </div>
+    </div>
+    
+    <!-- Button Zone -->
+    <div id="button-container">
+      <button class="action-button delete" id="delete-btn">Delete</button>
+      <button class="action-button" id="download-btn">Download</button>
+      
+      <!-- WebGPU Performance Stats -->
+      <div class="gpu-stats">
+        <span id="gpu-fps">0 FPS</span>
+        <span id="gpu-cubes">0 cubes</span>
+        <span id="gpu-mode">Grid</span>
+      </div>
+      
+      <!-- View Controls -->
+      <div class="view-controls">
+        <button class="view-button" data-mode="grid">
+          <span class="icon">◼</span> Grid
+        </button>
+        <button class="view-button" data-mode="year">
+          <span class="icon">📅</span> Year
+        </button>
+        <button class="view-button" data-mode="journal">
+          <span class="icon">📚</span> Journal
+        </button>
+        <button class="view-button" data-mode="cluster">
+          <span class="icon">🔍</span> Cluster
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WebGPU Modules -->
+  <script type="module" src="webgpu/core/renderer.js"></script>
+  <script type="module" src="webgpu/core/camera.js"></script>
+  <script type="module" src="webgpu/data/processor.js"></script>
+  <script type="module" src="webgpu/ui/controls.js"></script>
+  <script type="module" src="webgpu/ui/selection.js"></script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>
