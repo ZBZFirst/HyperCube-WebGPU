@@ -128,7 +128,7 @@ class WebGPUHyperCube {
     }
     
     async fetchPubMedData() {
-        // Simplified PubMed fetch - you can expand this
+        // Simplified PubMed fetch - you can expand this 
         const searchTerm = 'Liquid Mechanical Ventilation Life Support Humans';
         const response = await fetch(
             `https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=${encodeURIComponent(searchTerm)}&retmax=100&retmode=json`
